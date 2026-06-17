@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Brush, Code2, Gamepad2, Mail } from "@/components/icons";
+import { ArrowRight, Brush, Code2, Mail } from "@/components/icons";
 import { SiteShell } from "@/components/site-shell";
 
 export default function HomePage() {
@@ -29,7 +29,6 @@ export default function HomePage() {
       <section className="home-rail" aria-label="Portfolio areas">
         <Link href="/programmer"><Code2 /><span><strong>Programmer</strong>Simulation, web, architecture</span><ArrowRight /></Link>
         <Link href="/artist"><Brush /><span><strong>Artist</strong>Portraits, landscape, abstract</span><ArrowRight /></Link>
-        <Link className="games-link" href="/games"><Gamepad2 /><span><strong>Games</strong>Tetris and Snake, in browser</span><ArrowRight /></Link>
       </section>
     </SiteShell>
   );

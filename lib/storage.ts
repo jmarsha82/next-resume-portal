@@ -4,16 +4,12 @@ export type StoredPreferences = {
   version: number;
   theme: "dark" | "light";
   favoriteArt: string[];
-  tetrisHighScore: number;
-  snakeHighScore: number;
 };
 
 export const defaultPreferences: StoredPreferences = {
   version: STORAGE_VERSION,
   theme: "dark",
-  favoriteArt: [],
-  tetrisHighScore: 0,
-  snakeHighScore: 0
+  favoriteArt: []
 };
 
 const KEY = "jm-resume-portal";

@@ -2,15 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Brush, Code2, Gamepad2, Home, Info, Moon, Sun } from "@/components/icons";
+import { Brush, Code2, Home, Info, Moon, Sun } from "@/components/icons";
 import { usePortal } from "@/components/theme-provider";
 
 const links = [
   { href: "/", label: "Home", icon: Home },
   { href: "/programmer", label: "Programmer", icon: Code2 },
   { href: "/artist", label: "Artist", icon: Brush },
-  { href: "/about", label: "About", icon: Info },
-  { href: "/games", label: "Games", icon: Gamepad2 }
+  { href: "/about", label: "About", icon: Info }
 ];
 
 export function SiteShell({ children }: { children: React.ReactNode }) {

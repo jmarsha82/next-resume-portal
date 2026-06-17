@@ -7,7 +7,6 @@ type PortalContextValue = {
   preferences: typeof defaultPreferences;
   toggleTheme: () => void;
   toggleFavorite: (name: string) => void;
-  setHighScore: (game: "tetrisHighScore" | "snakeHighScore", score: number) => void;
 };
 
 const PortalContext = createContext<PortalContextValue | null>(null);
@@ -35,10 +34,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       favoriteArt: current.favoriteArt.includes(name)
         ? current.favoriteArt.filter((item) => item !== name)
         : [...current.favoriteArt, name]
-    })),
-    setHighScore: (game, score) => setPreferences((current) => ({
-      ...current,
-      [game]: Math.max(current[game], score)
     }))
   }), [preferences]);
 

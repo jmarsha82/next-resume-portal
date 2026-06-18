@@ -4,6 +4,8 @@ import { ArrowRight, Brush, Code2, Mail } from "@/components/icons";
 import { SiteShell } from "@/components/site-shell";
 
 export default function HomePage() {
+  const masterProfileHref = process.env.NEXT_PUBLIC_MASTER_PROFILE_URL || "http://127.0.0.1:4100";
+
   return (
     <SiteShell>
       <section className="hero">
@@ -15,6 +17,7 @@ export default function HomePage() {
             This local-first portfolio brings the threads together.
           </p>
           <div className="hero-actions">
+            <a className="button quiet" href={masterProfileHref}>Profile Selection</a>
             <Link className="button primary" href="/programmer">Explore the work <ArrowRight size={18} /></Link>
             <a className="button quiet" href="mailto:jmarsha82@yahoo.com?subject=From%20Website"><Mail size={18} /> Contact me</a>
           </div>

@@ -31,7 +31,10 @@ npm start
 
 ## Tests And Coverage
 
+All automated tests and shared test utilities live in `tests/`. Vitest is configured to discover tests only from that directory.
+
 ```powershell
 npm test
+npm run test:watch
 npm run test:coverage
 ```

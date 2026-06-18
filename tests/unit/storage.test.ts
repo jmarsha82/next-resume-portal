@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { defaultPreferences, readPreferences, writePreferences } from "./storage";
+import { defaultPreferences, readPreferences, writePreferences } from "@/lib/storage";
 
 describe("preference storage", () => {
   it("uses defaults when storage is unavailable, empty, invalid, or outdated", () => {
@@ -10,9 +10,11 @@ describe("preference storage", () => {
   });
 
   it("merges valid versioned values and writes them", () => {
-    const preferences = readPreferences({ getItem: () => JSON.stringify({ version: 1, theme: "light", favoriteArt: ["Iris"] }) });
-    expect(preferences.theme).toBe("light");
-    expect(preferences.favoriteArt).toEqual(["Iris"]);
+    const preferences = readPreferences({
+      getItem: () => JSON.stringify({ version: 1, theme: "light", favoriteArt: ["Iris"] })
+    });
+    expect(preferences).toEqual({ version: 1, theme: "light", favoriteArt: ["Iris"] });
+
     const setItem = vi.fn();
     writePreferences(preferences, { setItem });
     expect(setItem).toHaveBeenCalledWith("jm-resume-portal", JSON.stringify(preferences));

@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-build:
-    name: Test, Coverage, and Build
+  validate:
+    name: Validate, Test, and Build
     runs-on: ubuntu-latest
 
     env:
@@ -34,8 +34,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
       - name: Typecheck
         run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
 
       - name: Run unit tests
         run: npm test
@@ -53,3 +59,55 @@ jobs:
           name: coverage-report
           path: coverage/
           if-no-files-found: ignore
+
+  code-scanning:
+    name: Code Scanning
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+      security-events: write
+
+    env:
+      CI: true
+      NEXT_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Quality - ESLint SARIF scan
+        run: npm run lint:sarif
+
+      - name: Quality - Upload ESLint code scanning results
+        uses: github/codeql-action/upload-sarif@v4
+        if: always() && hashFiles('eslint-results.sarif') != ''
+        with:
+          sarif_file: eslint-results.sarif
+
+      - name: Security - Dependency review
+        uses: actions/dependency-review-action@v4
+        if: github.event_name == 'pull_request'
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: true
+
+      - name: Security - Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          queries: security-extended,security-and-quality
+
+      - name: Security - Analyze with CodeQL
+        uses: github/codeql-action/analyze@v4

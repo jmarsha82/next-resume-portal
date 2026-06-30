@@ -34,7 +34,12 @@ npm start
 All automated tests and shared test utilities live in `tests/`. Vitest is configured to discover tests only from that directory.
 
 ```powershell
+npm run typecheck
 npm test
 npm run test:watch
 npm run test:coverage
 ```
+
+## GitHub Actions
+
+The CI pipeline lives in `.github/workflows/ci.yml`. It runs on every push and pull request, installs dependencies with `npm ci`, typechecks the project, runs unit tests, verifies coverage, builds the production Next.js app, and uploads the coverage report as an artifact.

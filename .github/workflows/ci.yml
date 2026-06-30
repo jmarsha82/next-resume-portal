@@ -98,7 +98,7 @@ jobs:
 
       - name: Security - Dependency review
         uses: actions/dependency-review-action@v4
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'
         with:
           fail-on-severity: high
           comment-summary-in-pr: true

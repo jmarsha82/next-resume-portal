@@ -97,7 +97,7 @@ jobs:
           sarif_file: eslint-results.sarif
 
       - name: Security - Dependency review
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@v5
         if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'
         with:
           fail-on-severity: high
